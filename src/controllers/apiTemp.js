@@ -13,7 +13,6 @@ const apiTemp = async () => {
         if (!vart) {
           await Temperament.create({ name: dato })
         }
-
       }
     }
     const tem = await  Temperament.findAll({attributes:['name','id']});

@@ -26,8 +26,6 @@ const addRazas = async () => {
       try {
               if(raza?.reference_image_id){
         const imges =await fetch("https://api.thedogapi.com/v1/images/" + raza.reference_image_id);
-        // console.log(imges.status)
-        // if(imges.status != 200 || imges.status == 429) return {};
         const img= await imges?.json();
       return {
         id: raza.id || '',
@@ -56,9 +54,7 @@ const addRazas = async () => {
 
   } catch (error) {
     //lansamos el error hacia el manejador de erroes
-    console.log('sigue el puto error ',error)
-    return []
-  
+  throw Error('fallo de nurvo',error.message);
   };
 };
 

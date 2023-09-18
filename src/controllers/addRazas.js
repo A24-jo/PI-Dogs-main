@@ -24,7 +24,10 @@ const addRazas = async () => {
     //hacemos un map a razas para buscar en otra url de la api la url de la imagen 
     const newrazas = await Promise.all(razas?.map(async (raza) => {
       if(raza?.reference_image_id){
-        const img = await (await fetch("https://api.thedogapi.com/v1/images/" + raza.reference_image_id)).json();
+        const imges =await fetch("https://api.thedogapi.com/v1/images/" + raza.reference_image_id);
+        const img= await imges.json();
+        console.log(img)
+        console.log(img.status)
       return {
         id: raza.id || '',
         weight: raza.weight?.metric || '',
@@ -41,7 +44,7 @@ const addRazas = async () => {
         return {}
       }
     }));
-    console.log(newrazas)
+    
     return [...newrazas,...newdataBD];
 
 

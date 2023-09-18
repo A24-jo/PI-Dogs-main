@@ -44,7 +44,9 @@ const addRazas = async () => {
 
   } catch (error) {
     //lansamos el error hacia el manejador de erroes
-    throw new Error('Hay un error al obtener las razas desde la API: ' + error.message);
+    console.log('sigue el puto error ',error)
+    return []
+  
   };
 };
 

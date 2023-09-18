@@ -24,7 +24,7 @@ const addRazas = async () => {
     console.log(razas)
     //hacemos un map a razas para buscar en otra url de la api la url de la imagen 
     const newrazas = await Promise.all(razas?.map(async (raza) => {
-      if(raza.reference_image_id){
+      if(raza?.reference_image_id){
         const img = await (await fetch("https://api.thedogapi.com/v1/images/" + raza.reference_image_id)).json();
       return {
         id: raza.id,
@@ -38,6 +38,8 @@ const addRazas = async () => {
         origin: raza.origin,
         reference_image_id: img.url,
       };
+      }else{
+        return {}
       }
     }));
     return [...newrazas,...newdataBD];

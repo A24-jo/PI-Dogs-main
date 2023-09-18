@@ -25,7 +25,7 @@ const addRazas = async () => {
     const newrazas = await Promise.all(razas?.map(async (raza) => {
       if(raza?.reference_image_id){
         const imges =await fetch("https://api.thedogapi.com/v1/images/" + raza.reference_image_id);
-        console.log(imges.status)
+        if(imges.status != 200) return {};
         const img= await imges.json();
       return {
         id: raza.id || '',

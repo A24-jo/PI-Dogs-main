@@ -21,27 +21,27 @@ const addRazas = async () => {
     //solicitamos la totalidad de razas
     const datos = await fetch('https://api.thedogapi.com/v1/breeds');
     const razas = await datos.json();
-    console.log(razas)
     //hacemos un map a razas para buscar en otra url de la api la url de la imagen 
     const newrazas = await Promise.all(razas?.map(async (raza) => {
       if(raza?.reference_image_id){
         const img = await (await fetch("https://api.thedogapi.com/v1/images/" + raza.reference_image_id)).json();
       return {
-        id: raza.id,
-        weight: raza.weight.metric,
-        height: raza.height.metric,
-        name: raza.name,
-        bred_for: raza.bred_for,
-        breed_group: raza.breed_group,
-        life_span: raza.life_span,
-        temperament: raza.temperament,
-        origin: raza.origin,
-        reference_image_id: img.url,
+        id: raza.id || '',
+        weight: raza.weight?.metric || '',
+        height: raza.height?.metric || '',
+        name: raza.name || '',
+        bred_for: raza.bred_for || '',
+        breed_group: raza.breed_group || '',
+        life_span: raza.life_span || '',
+        temperament: raza.temperament || '',
+        origin: raza.origin || '',
+        reference_image_id: img.url || '',
       };
       }else{
         return {}
       }
     }));
+    console.log(newrazas)
     return [...newrazas,...newdataBD];
 
 
